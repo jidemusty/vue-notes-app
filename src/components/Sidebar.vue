@@ -1,14 +1,21 @@
 <template>
     <div class="sidebar">
-        <div class="sidebar__content">
+        <note></note>
+        <note></note>
+        <note></note>
+        <!-- <div class="sidebar__content">
             Boo, no notes. Get writing!
-        </div>
+        </div> -->
     </div>
 </template>
 
 <script>
-export default {
+import Note from '@/components/Note'
 
+export default {
+    components: {
+        Note
+    }
 }
 </script>
 
@@ -18,6 +25,8 @@ export default {
     flex: 1;
     height: 100%;
     min-width: 28%;
+    border-right: 2px solid #EEE;
+    overflow-y: scroll;
 
     &__content {
         padding: 30px;
