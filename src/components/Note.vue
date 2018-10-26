@@ -4,15 +4,9 @@
             <span class="note__delete-icon">&times;</span>
         </a>
         <div class="note__content">
-            <a href="#" class="note__title">One note</a>
+            <a href="#" class="note__title">{{ note.title }}</a>
             <p class="note__body">
-                Exercitation nostrud ad quis nostrud. Sunt esse velit id fugiat id deserunt proident voluptate magna. Eiusmod qui elit proident do consectetur velit exercitation eu nostrud. Aliquip in esse anim nulla officia veniam labore ullamco reprehenderit veniam ex excepteur. Ad mollit Lorem culpa fugiat consectetur labore qui duis duis incididunt. Ex in anim ullamco est adipisicing veniam aute et deserunt non. Voluptate est amet nulla sint non reprehenderit esse sit do occaecat.
-
-Veniam fugiat veniam pariatur ut magna qui reprehenderit Lorem cillum id nostrud. Occaecat aliquip fugiat deserunt magna culpa. Officia incididunt duis exercitation eiusmod deserunt consequat aute. Irure reprehenderit sint magna ad. Non est qui pariatur elit enim veniam.
-
-Consectetur dolore reprehenderit id laboris adipisicing ex eiusmod fugiat sint ullamco. Quis minim ea sunt duis nostrud consectetur in nisi sint adipisicing id fugiat. Magna occaecat irure culpa tempor deserunt do.
-
-Amet eu labore sit ad est. Occaecat consequat aliquip cupidatat proident do aliqua ad ullamco. Irure enim ut ex fugiat. Adipisicing ex ipsum excepteur deserunt ipsum anim. Et esse est velit aute ex proident aute eu proident eiusmod. Eiusmod dolore veniam amet ea esse. Tempor et minim ea ad culpa aliqua esse amet cillum velit ipsum eiusmod.
+                {{ note.body }}
             </p>
         </div>
     </div>
@@ -20,7 +14,9 @@ Amet eu labore sit ad est. Occaecat consequat aliquip cupidatat proident do aliq
 
 <script>
 export default {
-
+    props: [
+        'note'
+    ]
 }
 </script>
 
