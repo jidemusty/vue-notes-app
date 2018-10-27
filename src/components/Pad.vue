@@ -49,7 +49,7 @@ export default {
         flex-direction: column;
 
         &__title {
-            width: 100%;
+            max-width: 100%;
             border: 0;
             font: inherit;
             font-size: 1.6em;
@@ -62,7 +62,7 @@ export default {
         &__text {
             flex: 1;
             margin: 0;
-            width: 100%;
+            max-width: 100%;
             border: 0;
             font: inherit;
             resize: 0;
