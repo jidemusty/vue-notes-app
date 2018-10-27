@@ -1,4 +1,5 @@
-# notes-apps
+# Notes-app
+A clean, elegant notes app with Vue.js and Vuex
 
 ## Project setup
 ```
