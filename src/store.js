@@ -12,7 +12,7 @@ export default new Vuex.Store({
       body: null,
       lastSaved: null
     },
-    notes: [],
+    notes: JSON.parse(localStorage.getItem('notes')) || [],
     saveTimeOut: null
   },
   getters: {
@@ -55,7 +55,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    saveNote: ({ commit, state}) => {
+    saveNote: ({ commit, dispatch, state}) => {
       commit('touchLastSaved')
 
       if (state.note.id === null) {
@@ -63,6 +63,10 @@ export default new Vuex.Store({
         commit('prependToNotes', state.note)
       }
       
+      dispatch('storeNotes')
+    },
+    storeNotes: ({ state }) => {
+      localStorage.setItem('notes', JSON.stringify(state.notes))
     },
     startSaveTimeOut: ({ commit, dispatch, state}) => {
       if (state.saveTimeOut !== null) {
