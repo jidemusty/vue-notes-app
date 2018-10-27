@@ -51,9 +51,20 @@ export default new Vuex.Store({
       state.saveTimeOut = setTimeout(callback, delay)
     },
     clearSaveTimeOut (state) {
+      clearInterval(state.saveTimeOut)
       state.saveTimeOut = null
     },
     setCurrentNote (state, note) {
+      if (note === null) {
+        state.note = {
+          id: null,
+          title: null,
+          body: null,
+          lastSaved: null
+        }
+        return
+      }
+
       state.note = note
     }
   },
@@ -89,6 +100,10 @@ export default new Vuex.Store({
     },
     openNote: ({ commit }, note) => {
       commit('setCurrentNote', note)
+    },
+    clearCurrentNote: ({ commit, dispatch }) => {
+      dispatch('stopSaveTimeout')
+      commit('setCurrentNote', null)
     }
   }
 })
