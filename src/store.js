@@ -28,6 +28,13 @@ export default new Vuex.Store({
       }
 
       return moment(state.note.lastSaved).calendar()
+    },
+    wordCount: (state) => {
+      if (!state.note.body || state.note.body.trim() === '') {
+        return 0
+      }
+
+      return state.note.body.trim().split(' ').length
     }
   },
   mutations: {
