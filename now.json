@@ -1,0 +1,17 @@
+{
+    "name": "notes-app",
+    "type": "static",
+    "static": {
+      "public": "dist",
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    "alias": "notes-app",
+    "files": [
+      "dist"
+    ]
+  }
