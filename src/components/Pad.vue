@@ -1,24 +1,39 @@
 <template>
     <div class="pad">
-        <input type="text" class="pad__title" placeholder="Untitled note" v-model="note.title">
-        <textarea class="pad__text" placeholder="Start writing..." v-model="note.body"></textarea>
+        <input type="text" class="pad__title" placeholder="Untitled note" v-model="note.title" @keydown="save">
+        <textarea class="pad__text" placeholder="Start writing..." v-model="note.body" @keydown="save"></textarea>
 
         <footer class="pad__footer">
             <ul class="pad__footer-items">
                 <li class="pad__footer-item">Words: x</li>
-                <li class="pad__footer-item pad__footer-item--right">Last saved: xx/xx</li>
+                <li class="pad__footer-item pad__footer-item--right">Last saved: {{ lastSaved }}</li>
             </ul>
         </footer>
     </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
+    methods: {
+        ...mapActions([
+            'saveNote',
+            'startSaveTimeOut'
+        ]),
+        save () {
+            if (!this.note.id) {
+                this.saveNote()
+                return
+            }
+
+            this.startSaveTimeOut()
+        }
+    },
     computed: {
         ...mapGetters([
-            'note'
+            'note',
+            'lastSaved'
         ])
     }
 }

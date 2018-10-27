@@ -1,20 +1,19 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import moment from 'moment'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     note: {
+      id: null,
       title: null,
       body: null,
       lastSaved: null
     },
-    notes: [
-      { title: 'One', body: 'Body One', lastSaved: 1},
-      { title: 'Two', body: 'Body Two', lastSaved: 3 },
-      { title: 'Three', body: 'Body Three', lastSaved: 2 }
-    ]
+    notes: [],
+    saveTimeOut: null
   },
   getters: {
     note: state => state.note,
@@ -22,12 +21,57 @@ export default new Vuex.Store({
       return state.notes.sort((a, b) => {
         return a['lastSaved'] < b['lastSaved']
       })
+    },
+    lastSaved: (state) => {
+      if (!state.note.lastSaved) {
+        return 'Never'
+      }
+
+      return moment(state.note.lastSaved).calendar()
     }
   },
   mutations: {
-
+    setCurrentNoteId (state, id) {
+      state.note.id = id
+    },
+    prependToNotes(state, note) {
+      state.notes.unshift(note)
+    },
+    touchLastSaved (state) {
+      state.note.lastSaved = Date.now()
+    },
+    setSaveTimeOut (state, { callback, delay }) {
+      state.saveTimeOut = setTimeout(callback, delay)
+    },
+    clearSaveTimeOut (state) {
+      state.saveTimeOut = null
+    }
   },
   actions: {
+    saveNote: ({ commit, state}) => {
+      commit('touchLastSaved')
 
+      if (state.note.id === null) {
+        commit('setCurrentNoteId', Date.now())
+        commit('prependToNotes', state.note)
+      }
+      
+    },
+    startSaveTimeOut: ({ commit, dispatch, state}) => {
+      if (state.saveTimeOut !== null) {
+        return
+      }
+
+      commit('setSaveTimeOut', {
+        callback () {
+          dispatch('saveNote')
+          dispatch('stopSaveTimeout')
+        },
+        delay: 1000
+      })
+    },
+    stopSaveTimeout: ({ commit }) => {
+      commit('clearSaveTimeOut')
+    }
   }
 })
