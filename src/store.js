@@ -66,6 +66,11 @@ export default new Vuex.Store({
       }
 
       state.note = note
+    },
+    deleteNote(state, id) {
+      state.notes = state.notes.filter((note) => {
+        return note.id !== id
+      })
     }
   },
   actions: {
@@ -104,6 +109,15 @@ export default new Vuex.Store({
     clearCurrentNote: ({ commit, dispatch }) => {
       dispatch('stopSaveTimeout')
       commit('setCurrentNote', null)
+    },
+    deleteNote: ({ commit, dispatch, state}, id) => {
+      if (id === state.note.id) {
+        dispatch('clearCurrentNote')
+      }
+
+      commit('deleteNote', id)
+
+      dispatch('storeNotes')
     }
   }
 })
